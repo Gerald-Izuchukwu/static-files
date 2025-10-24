@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Order Checkout</h1>
+        
+        <h2>Your Cart Summary</h2>
+        <table id="cart-summary-table">
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Qty</th>
+                    <th>Price</th>
+                    <th>Subtotal</th>
+                </tr>
+            </thead>
+            <tbody id="cart-items-body">
+                <tr><td colspan="4">Your cart is empty.</td></tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="3" class="total-label">Total:</td>
+                    <td id="cart-total">$0.00</td>
+                </tr>
+            </tfoot>
+        </table>
+
+        <h2>Shipping Information</h2>
+        <div class="form-group">
+            <label for="address">Shipping Address:</label>
+            <textarea id="address" rows="3" required></textarea>
+        </div>
+        
+        <h2>Payment</h2>
+        <div class="form-group">
+            <label for="payment-method">Payment Method (Simulated):</label>
+            <select id="payment-method">
+                <option value="card">Credit Card</option>
+                <option value="paypal">PayPal</option>
+            </select>
+        </div>
+
+        <button id="place-order-button">Place Order</button>
+        <p class="message" id="checkout-message"></p>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
