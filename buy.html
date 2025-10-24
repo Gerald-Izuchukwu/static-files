@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="product-title">Product Details</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <p><a href="products.html">&larr; Back to Products</a></p>
+        
+        <div id="product-detail-card">
+            <h2>Loading Product Details...</h2>
+        </div>
+
+        <div class="buy-section">
+            <div class="form-group">
+                <label for="quantity">Quantity:</label>
+                <input type="number" id="quantity" value="1" min="1" max="99" required>
+            </div>
+            <button id="add-to-cart-button">Add to Cart</button>
+            <p class="message" id="buy-message"></p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
