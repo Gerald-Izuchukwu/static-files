@@ -1,0 +1,63 @@
+// --- Products Page Handlers ---
+
+// Renders a single product card HTML
+function createProductCard(product) {
+    return `
+        <div class="product-card">
+            <img src="${product.imageUrl || 'placeholder.jpg'}" alt="${product.name}">
+            <h3>${product.name}</h3>
+            <p>${product.description.substring(0, 70)}...</p>
+            <p class="price">$${product.price.toFixed(2)}</p>
+            <button onclick="window.location.href='buy.html?id=${product.id}'">View Details</button>
+        </div>
+    `;
+}
+
+// Fetches and renders the products based on the current filter
+async function loadProducts() {
+    const container = document.getElementById('products-container');
+    const categorySelect = document.getElementById('category-filter');
+    const category = categorySelect ? categorySelect.value : 'all';
+
+    let endpoint = PRODUCT_ENDPOINT;
+    if (category !== 'all') {
+        endpoint += `?category=${category}`;
+    }
+
+    container.innerHTML = 'Loading products...';
+
+    try {
+        const products = await apiFetch(endpoint, { method: 'GET' });
+        
+        container.innerHTML = products.map(createProductCard).join('');
+        
+        if (products.length === 0) {
+             container.innerHTML = '<p>No products found in this category.</p>';
+        }
+
+        // Only populate categories once on initial load
+        if (categorySelect && categorySelect.options.length <= 1) {
+            const categories = [...new Set(products.map(p => p.category))];
+            categories.forEach(cat => {
+                const option = document.createElement('option');
+                option.value = cat;
+                option.textContent = cat;
+                categorySelect.appendChild(option);
+            });
+        }
+
+    } catch (error) {
+        container.innerHTML = `<p class="message error">Failed to load products: ${error.message}</p>`;
+        console.error("Product fetch error:", error);
+    }
+}
+
+// Attach event listeners for the Products page
+if (document.getElementById('products-container')) {
+    window.addEventListener('load', loadProducts);
+
+    const filterButton = document.getElementById('apply-filter-button');
+    if (filterButton) {
+        filterButton.addEventListener('click', loadProducts);
+    }
+}
